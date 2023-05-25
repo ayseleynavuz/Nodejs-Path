@@ -1,22 +1,28 @@
 const express = require('express');
 const path = require('path');
+const ejs = require('ejs');
+
 const app = express();
 
+// template engine
+app.set('view engine', 'ejs'); // set the view engine to ejs
+
 //middleware
-const myLogger = (req, res, next) => {
-    console.log('inside a middleware');
-    next(); // to move to the next middleware
-};
-
-
-
 app.use(express.static('public')); // to access the files in public folder
-app.use(myLogger); // to use the middleware
 
-//app.use(express.static("temp"))
+//routes
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'temp/index.html'));
+    //res.sendFile(path.resolve(__dirname, 'temp/index.html'));
+    res.render('index');
 });
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+app.get('/add', (req, res) => {
+    res.render('add');
+});
+
+
 
 /*
 app.get('/', (req, res) => {  
